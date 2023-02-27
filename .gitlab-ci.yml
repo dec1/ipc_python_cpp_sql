@@ -12,7 +12,7 @@ build_and_test:
     - cd ./prj/cpp && ./build.sh
 
     # run c++ tests
-    - ./build/my_app_test
+    - ./test.sh
 
     # ensure mysql service is running and create database
     - sudo ./db_init.sh
