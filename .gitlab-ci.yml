@@ -9,7 +9,7 @@ build_and_test:
   script:
   
      # build cpp
-    - cd ./cpp && ./build.sh
+    - cd ./prj/cpp && ./build.sh
 
     # run c++ tests
     - ./build/my_app_test
