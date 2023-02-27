@@ -1,5 +1,7 @@
+# docker image has been created from dockerfile (ci/docker) and uploaded to gitlab container registry
 image: $CI_REGISTRY_IMAGE
 
+# export environment variable so that cmake can find qt in Ci container
 variables:
   CMAKE_PREFIX_PATH: /opt/Qt/6.4.0/gcc_64
 
@@ -8,26 +10,28 @@ build_and_test:
  
   script:
   
-     # build cpp
+     # build cpp and run clang-tidy
     - cd ./prj/cpp && ./build.sh
 
-    # run c++ tests
+    # run c++ tests and generate reports 
     - ./test.sh
 
     # ensure mysql service is running and create database
     - sudo ./db_init.sh
 
+    # create python virtual enironment and install required pip packages
     - cd ../python/prj && ./venv_create.sh
 
-    # run python test
+    # create two instances of c++ app, and make sure they can both read what the other writes to the database
+    # use python to manage the c++ processes, specify the values each c++ instances should write/read to/from database, and assert results are as expected (using pytest)
     - cd .. &&  sudo ./prj/venv/bin/pytest test/test__client.py::test_multiple_cpp_procs --capture=sys -s
     
 
-
+    # save artifacts: c++ binary app, and test reports
   artifacts:
       paths:
         - ./prj/cpp/build/my_app_main
-        - ./prj/app/build/test_results.xml
+        - ./prj/cpp/build/test_results.xml
         - ./prj/cpp/build/ctest_results.xml
 
       reports:
