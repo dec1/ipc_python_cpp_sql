@@ -1,0 +1,65 @@
+# Image: dec1/qt6.4.2_mysql8_ubuntu20.04
+
+#--------------------------------------------------------------------
+
+FROM stateoftheartio/qt6:6.4-gcc-aqt
+MAINTAINER Declan
+
+
+
+ENV DEBIAN_FRONTEND=noninteractive 
+
+RUN    sudo apt-get update \
+    && sudo apt-get install clang-tidy -y \
+    && sudo apt-get install python3-pip -y \
+    && sudo apt-get install python3-venv -y \
+    && sudo apt-get install mysql-server -y
+    
+
+#-----------------------------------------------------------------
+# Build
+#------
+#------
+
+# (1) create image from Dockerfile in current dir
+# > docker build -t my_img --file qt6.4.2_mysql8_ubuntu20.04.df .
+
+# (2) alias (tag)
+# > docker tag my_img dec1/qt6.4.2_mysql8_ubuntu20.04
+    
+    #  gitlab
+    # needs to tagged ~ repo (eg "registry.gitlab.com/dec1/ipc_python_cpp_sql")
+                                                                
+        
+    # > docker tag  my_img registry.gitlab.com/dec1/ipc_python_cpp_sql:latest 
+    
+        # seem to be able to uplad multiple images (if tag names conform):
+        # https://stackoverflow.com/questions/50637641/how-to-push-multiple-images-needed-for-docker-compose-to-gitlab-registry-in-gitl
+        
+# (3)
+# > docker login 
+    
+    #  gitlab (registry instead of dockerhub)
+    # > docker login registry.gitlab.com
+
+# (4) push this image to docker hub
+# > docker push dec1/qt6.4.2_mysql8_ubuntu20.04
+
+    #  gitlab
+    # > docker push registry.gitlab.com/dec1/ipc_python_cpp_sql:latest
+
+ 
+ 
+ 
+# (5)  
+# > docker logout
+
+ 
+ 
+# Run
+#------ 
+ 
+# run a container named "my_ctr" from the image "my_img"
+# > docker run -it --name my_ctr my_img
+
+ 
