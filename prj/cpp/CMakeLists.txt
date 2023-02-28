@@ -21,11 +21,11 @@ add_executable(${My_TargTest})
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Sql)
 find_package(Qt6 REQUIRED COMPONENTS Test)
-#find_package(Qt6 REQUIRED COMPONENTS HttpServer)
 find_package(Qt6 REQUIRED COMPONENTS Network)
 
 
 
+#-------------------------
 enable_testing(true)
 #-------------------------
 target_link_libraries (${My_TargExe}    PRIVATE ${My_Targ})
@@ -34,17 +34,13 @@ target_link_libraries (${My_TargTest}   PRIVATE ${My_Targ} Qt::Test)
 target_link_libraries(${My_Targ} INTERFACE Qt6::Core)
 target_link_libraries(${My_Targ} PRIVATE Qt6::Sql)
 target_link_libraries(${My_Targ} PRIVATE Qt6::Network)
-#target_link_libraries(${My_Targ} PRIVATE Qt6::HttpServer)
 #-------------------------
 add_test(NAME ${My_TargTest} COMMAND ${My_TargTest})
 
-# set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-#--------------------------------------------------------------------------
-#enable_testing(true)
 
+
+#-------------------------
 add_subdirectory(src)
 add_subdirectory(tests)
-
-
 #------------------------

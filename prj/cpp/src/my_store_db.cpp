@@ -12,7 +12,7 @@
 
 
 //-------------------------------------------------------
-QString  MyStoreDb::conn_name(){ return "my_conn";}
+QString  conn_name(){ return "my_conn";}
 QString  db_name(){ return "my_db";}
 QString  table_name(){ return "my_tab";}
 //-------------------------------------------------------

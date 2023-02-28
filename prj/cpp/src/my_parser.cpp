@@ -18,7 +18,7 @@ MyParseResult MyParser::from_String(QString Mesg)
 {
     MyParseResult Ret;
 
-    if(!_Store)
+    if(!_store)
     {
         Ret.Info.append("Mesg Parse Error: no backing store (db or mem) available for data");
         return Ret;
@@ -58,8 +58,8 @@ MyParseResult MyParser::from_String(QString Mesg)
         if (cnt > 2)
           Ret.Info.append("Mesg Parse Warning: anythin after 'id' in 'read' operation will be ignored:" + Parts.at(2));
 
-        Ret.ok = _Store->has_name(id);
-        Ret.Value = _Store->read_name(id);
+        Ret.ok = _store->has_name(id);
+        Ret.value = _store->read_name(id);
         Ret.op = MyParseResult::Op::Read;
         return Ret;
 
@@ -67,8 +67,8 @@ MyParseResult MyParser::from_String(QString Mesg)
     else if(Verb == "write")
     {
 
-        Ret.ok = _Store->write_name(id, Name);
-        Ret.Value = Name;
+        Ret.ok = _store->write_name(id, Name);
+        Ret.value = Name;
         Ret.op = MyParseResult::Op::Write;
 
         return Ret;

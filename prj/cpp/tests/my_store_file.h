@@ -5,6 +5,8 @@
 #include  <QString>
 
 //-------------------------------------------------------
+// File backing store
+//-------------------------------------------------------
 class MyStoreFile : public MyStore
 {
 

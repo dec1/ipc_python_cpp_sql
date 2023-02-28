@@ -11,12 +11,6 @@ set(My_Sources
     ${My_Dir}/my_store_db.cpp
     ${My_Dir}/my_store_db.h
 
-    ${My_Dir}/my_store_file.cpp
-    ${My_Dir}/my_store_file.h
-
-    # todo move to tests
-    ${My_Dir}/my_store_mem.cpp
-    ${My_Dir}/my_store_mem.h
 
     ${My_Dir}/my_net.h
     ${My_Dir}/my_net.cpp

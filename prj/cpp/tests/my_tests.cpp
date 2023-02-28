@@ -79,15 +79,15 @@ void MyTests::testParser(MyParser * Parser)
     QVERIFY2(Res.ok,      "parser write val for id=15 to 'John'");
 
     Res = Parser->from_String("Read, 15");
-    QVERIFY2(Res.ok && (Res.Value == "John"),"parser expect read (back) 'John' for id=15");
+    QVERIFY2(Res.ok && (Res.value == "John"),"parser expect read (back) 'John' for id=15");
 
 
     // unhappy paths
     Res = Parser->from_String("Read, -1");
-    QVERIFY2(!Res.ok && Res.Value.isEmpty(), "parser expect fail result when read for id=-1");
+    QVERIFY2(!Res.ok && Res.value.isEmpty(), "parser expect fail result when read for id=-1");
 
     Res = Parser->from_String("Bad_op, 15");
-    QVERIFY2(!Res.ok && Res.Value.isEmpty(), "parser expect fail result when perform BadOp instead of read/write");
+    QVERIFY2(!Res.ok && Res.value.isEmpty(), "parser expect fail result when perform BadOp instead of read/write");
 }
 //---------------------------------------------
 void MyTests::testParserMem()

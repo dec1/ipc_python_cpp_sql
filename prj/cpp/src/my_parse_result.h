@@ -3,6 +3,11 @@
 #include <QStringList>
 
 //-------------------------------------------------------
+// Enscapsulates reply to client
+//      - after parsing and (possibly) execution of (read/write) instruction encodedin the message they sent
+//      - ok: on success
+//      - value (read or echo of that writen)
+//-------------------------------------------------------
 class MyParseResult
 {
 
@@ -11,7 +16,7 @@ public:
    Op op = Op::None;
 
    bool ok = false;
-   QString Value;
+   QString value;
 
    QStringList Info;
 };

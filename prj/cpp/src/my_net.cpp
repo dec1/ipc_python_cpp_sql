@@ -10,15 +10,15 @@
 #include <iostream>
 
 
-MyNet::MyNet(int port, MyStore * Store)
-    : QObject(), _port(port), _Store(Store)
+MyNet::MyNet(int port, MyStore * store)
+    : QObject(), _store(store), _port(port)
 {
 
-    server = new QTcpServer(this);
+    _server = new QTcpServer(this);
 
 
-    if (!server->listen(QHostAddress::Any, port))
-        qDebug()<< tr ("Unable to start the server: %1.").arg(server->errorString());
+    if (!_server->listen(QHostAddress::Any, port))
+        qDebug()<< tr ("Unable to start the server: %1.").arg(_server->errorString());
 
     QString ipAddress;
     QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
@@ -36,42 +36,42 @@ MyNet::MyNet(int port, MyStore * Store)
     if (ipAddress.isEmpty())
         ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
 
-    connect(server, &QTcpServer::newConnection, this, &MyNet::slotConnected);
+    connect(_server, &QTcpServer::newConnection, this, &MyNet::slotConnected);
 
     qDebug()<< QString("MyNet (c++) - server is running on IP: %1, port: %2. Clients can connect now.")
-               .arg(ipAddress).arg(server->serverPort());
+               .arg(ipAddress).arg(_server->serverPort());
 }
 //--------------------------------------
-void MyNet::onReceived(QTcpSocket * Conn)
+void MyNet::onReceived(QTcpSocket * conn)
 {
-    QString Mesg  = Conn->readAll();
+    QString Mesg  = conn->readAll();
     qDebug() << "MyNet (c++), received" << Mesg ;
 
     QString Reply = parseMesg(Mesg);
-    Conn->write(Reply.toUtf8());
+    conn->write(Reply.toUtf8());
 
     qDebug()<< "MyNet::onReceived() wrote reply: "<<Reply.toUtf8();
 }
 //--------------------------------------
-QString MyNet::parseMesg(QString Mesg)
+QString MyNet::parseMesg(QString mesg)
 {
-        if(!_Store)
+        if(!_store)
         {
             qDebug("Parser requitres backing data store before messages can be parsed");
             return QString();
         }
 
-        MyParser Parser(_Store);
-        MyParseResult Res = Parser.from_String(Mesg);
+        MyParser Parser(_store);
+        MyParseResult Res = Parser.from_String(mesg);
         QString Ret;
-        Ret = Res.Value;
+        Ret = Res.value;
 
         return Ret;
 }
 //--------------------------------------
 void MyNet::slotConnected()
 {
-    QTcpSocket *clientConnection = server->nextPendingConnection();
+    QTcpSocket *clientConnection = _server->nextPendingConnection();
     QObject::connect(
         clientConnection, &QTcpSocket::readyRead, this,
         [this, clientConnection]()
@@ -83,8 +83,4 @@ void MyNet::slotConnected()
     connect(clientConnection, &QAbstractSocket::disconnected,
             clientConnection, &QObject::deleteLater);
 }
-//----------------------------------
-MyNet::~MyNet()
-{
 
-}
