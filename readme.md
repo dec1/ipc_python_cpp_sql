@@ -20,10 +20,12 @@ c++ instances can be started, and their tcp servers ready to receive messages, i
 
 #### Testing 
 - C++ unit tests, using the Qt test framework, and cmake's support for testing
+- Clang-tidy is executed as part of code quality control
 - Python client uses a test framework (*pytest*) to (asynchronously) assert that the behaviour and reads/writes of the c++ instances is as expected
 
 #### CI
-A docker image was created using the dockefile in the ci/docker directory, and uploaded to the gitlab container registry, for use in the ci pipeine
+- A docker image was created using the dockefile in the ci/docker directory, and uploaded to the gitlab container registry, for use in the ci pipeine
+- The c++ aplication binary as well as (juint) based test reports are saved as artifacts
 
 ## Prerequisites
 - Qt 6
