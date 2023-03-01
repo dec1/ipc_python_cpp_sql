@@ -1,12 +1,12 @@
 # Inter-Process Communication via Tcp Sockets and (SQL) Database
 
 ##### Prolog
-This document is markdown format and best viewed using a markdown capable viewer, such as 
+This document is in markdown format and best viewed using a markdown capable viewer, such as 
 _pycharm_ or _visual studio code_. Alternatively copy/paste into an online markdown viewer 
 such as https://dillinger.io
 
 ### Introduction
-This project demonstrates the simultaneous instantaneous and execution of multiple instances of applications written in C++,
+This project demonstrates the simultaneous creation and execution of multiple instances of an application written in C++,
 each of which can perform read/write on a database. 
 
 #### Implementation 
