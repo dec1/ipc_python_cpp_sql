@@ -23,7 +23,7 @@ c++ instances can be started, and their tcp servers ready to receive messages, i
 - Python client uses a test framework (*pytest*) to (asynchronously) assert that the behaviour and reads/writes of the c++ instances is as expected
 
 #### CI
-- A docker image was created using the dockefile in the ci/docker directory, and uploaded to the gitlab container registry, for use in the ci pipeine
+- A docker image was created using the dockefile in the ci/docker directory, and uploaded to the gitlab container registry, for use in the [gitlab ci pipeine](https://gitlab.com/p8mode/ipc_python_cpp_sql/-/pipelines)
 - The c++ aplication binary as well as (juint) based test reports are saved as artifacts
 
 ## Prerequisites
